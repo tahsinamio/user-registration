@@ -1,0 +1,71 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Username:</label>
+    <input id="username" type="text" formControlName="username">
+    <div *ngIf="registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty || registrationForm.get('username')?.touched)">
+      <small *ngIf="registrationForm.get('username')?.errors?.['required'] || registrationForm.get('username')?.errors?.['minlength']">
+        Username is required and must be at least 3 characters long.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email">
+    <div *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)">
+      <small *ngIf="registrationForm.get('email')?.errors?.['required'] || registrationForm.get('email')?.errors?.['email']">
+        Please enter a valid email address.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password">
+    <div *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)">
+      <small *ngIf="registrationForm.get('password')?.errors?.['required'] || registrationForm.get('password')?.errors?.['minlength']">
+        Password is required and must be at least 6 characters long.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="confirmPassword">Confirm Password:</label>
+    <input id="confirmPassword" type="password" formControlName="confirmPassword">
+    <div *ngIf="registrationForm.get('confirmPassword')?.invalid && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)">
+      <small *ngIf="registrationForm.get('confirmPassword')?.errors?.['required']">
+        Please confirm your password.
+      </small>
+    </div>
+    <div *ngIf="registrationForm.errors?.['passwordMismatch'] && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)">
+      <small>
+        Passwords do not match.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="phoneNumber">Phone Number:</label>
+    <input id="phoneNumber" type="text" formControlName="phoneNumber">
+    <div *ngIf="registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.dirty || registrationForm.get('phoneNumber')?.touched)">
+      <small *ngIf="registrationForm.errors?.['requiredContact'] && registrationForm.get('preferredContact')?.value === 'phone'">
+        Please provide at least one contact method.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="preferredContact">Preferred Contact Method:</label>
+    <select id="preferredContact" formControlName="preferredContact">
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+    </select>
+    <div *ngIf="registrationForm.errors?.['requiredContact'] && (registrationForm.get('preferredContact')?.dirty || registrationForm.get('preferredContact')?.touched)">
+      <small>
+        Please provide at least one contact method.
+      </small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+</form>
