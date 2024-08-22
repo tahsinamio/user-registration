@@ -6,6 +6,9 @@
       <small *ngIf="registrationForm.get('username')?.errors?.['required'] || registrationForm.get('username')?.errors?.['minlength']">
         Username is required and must be at least 3 characters long.
       </small>
+      <small *ngIf="registrationForm.get('username')?.errors?.['usernameTaken']">
+        Username is already taken.
+      </small>
     </div>
   </div>
 
